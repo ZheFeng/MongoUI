@@ -1,4 +1,4 @@
-mongoui
+MongoUI
 =======
 
 MongoDB UI by Node, Angular
