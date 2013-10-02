@@ -6,13 +6,23 @@
     "start": "node app"
   },
   "dependencies": {
-    "express": "3.2.4",
-    "jade": "*"
-  },
-  "devDependencies": {
-    "grunt": "~0.4.1",
-    "grunt-develop": "~0.0.2",
-    "grunt-regarde": "~0.1.1",
-    "grunt-contrib-livereload": "~0.1.2"
+    "chai": "*",
+    "grunt": "*",
+    "grunt-devtools": "*",
+    "grunt-contrib-coffee": "*",
+    "grunt-contrib-jade": "*",
+    "grunt-contrib-handlebars": "*",
+    "grunt-contrib-less": "*",
+    "grunt-contrib-clean": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-yui-compressor": "*",
+    "grunt-yui-contrib": "*",
+    "grunt-develop": "*",
+    "grunt-wrap": "*",
+    "grunt-regarde": "*",
+    "grunt-contrib-jshint": "*",
+    "matchdep": "*",
+    "grunt-contrib-livereload": "*",
+    "colors": "*"
   }
 }

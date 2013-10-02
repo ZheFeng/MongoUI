@@ -1,3 +1,9 @@
-node_modules/
-public/components
+app/node_modules
+node_modules
+app/public/components
+app/public/js
+app/public/js.src
+app/public/css
+app/public/html
+app/server
 .sass-cache

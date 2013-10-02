@@ -1,40 +1,142 @@
-module.exports = function (grunt) {
+'use strict';
 
+module.exports = function (grunt) {
+  require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks)
+  var yuiModules = '"app", "handlebars-base"'; 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    clean: {
+      front: [
+        './app/public/html',
+        './app/public/js',
+        './app/public/js.src',
+        './app/public/css'
+      ],
+      server: ['./app/server']
+    },
+    coffee: {
+      server: {
+        options: {
+          bare: true
+        },
+        expand: true,
+        cwd: 'coffee.server',
+        src: ['**/*.coffee'],
+        dest: './app/server',
+        ext: '.js'
+      },
+      angular: {
+        options: {
+          join: true,
+          bare: false
+        },
+        files: {
+          './app/public/js.src/mongoui.js': [
+            './coffee.front.angular/mongoUi/init.coffee',
+            './coffee.front.angular/mongoUi/services.coffee',
+            './coffee.front.angular/mongoUi/factories.coffee',
+            './coffee.front.angular/mongoUi/directives.coffee',
+            './coffee.front.angular/mongoUi/controllers.coffee',
+            './coffee.front.angular/mongoUi/main.coffee'
+          ] // concat then compile into single file
+        }
+      }
+    },
+    uglify: {
+      front: {
+        options: {
+          banner: '/*<%= grunt.template.today("yyyy-mm-dd") %> */',
+          mangle: true,
+          beautify: false,
+          // sourceMapRoot: '/',
+          // sourceMap: function(path) { return path.replace(/.min.js/,".min.js.map"); },
+          // sourceMappingURL: function(path) { return  path.replace(/app\/public/,"").replace(/.min.js/,".min.js.map"); },
+          // sourceMapPrefix: 2
+        },
+        expand: true,
+        cwd: './app/public/js.src',
+        src: ['**/*.js'],
+        dest: './app/public/js',
+        ext: '.min.js'
+      }
+    },
+    jade: {
+      html: {
+        options: {
+          pretty: true
+        },
+        expand: true,
+        cwd: 'jade',
+        src: ['**/*.jade'],
+        dest: './app/public/html',
+        ext: '.html'
+      }
+    },
+    less: {
+      minCss: {
+        options: {
+          compress: true,
+          yuicompress: true
+        },
+        expand: true,
+        cwd: 'less',
+        src: ['**/*.less'],
+        dest: './app/public/css',
+        ext: '.min.css'
+      },
+      css: {
+        options: {
+          compress: false,
+          yuicompress: false
+        },
+        expand: true,
+        cwd: 'less',
+        src: ['**/*.less'],
+        dest: './app/public/css',
+        ext: '.css'
+      }
+    },
     develop: {
       server: {
-        file: 'app.js'
+        nodeArgs: ['--debug'],
+        file: 'app/server/app.js',
+        env: { 
+          NODE_ENV: 'development',
+        }
       }
     },
     regarde: {
-      js: {
+      server: {
         files: [
-          'app.js',
-          'routes/*.js'
+          'coffee.server/**/*.coffee'
         ],
-        tasks: ['develop', 'delayed-livereload']
+        tasks: ['compileServer','develop', 'delayed-livereload']
       },
-      css: {
-        files: ['public/stylesheets/*.css'],
-        tasks: ['livereload']
+      front: {
+        files: [
+          'coffee.front.angular/**/*.coffee',
+          'less/**/*.less',
+          'jade/**/*.jade'
+        ],
+        tasks: ['compileFront','livereload']
       },
       jade: {
-        files: ['views/*.jade'],
+        files: ['app/views/**/*.jade'],
         tasks: ['livereload']
       }
     }
-	});
+  });
   grunt.registerTask('delayed-livereload', 'delayed livereload', function () {
     var done = this.async();
     setTimeout(function () {
       grunt.task.run('livereload');
       done();
-    }, 500);
+    }, 1500);
   });
-	grunt.loadNpmTasks('grunt-develop');
-  grunt.loadNpmTasks('grunt-regarde');
-  grunt.loadNpmTasks('grunt-contrib-livereload');
 
-  grunt.registerTask('default', ['livereload-start', 'develop', 'regarde']);
+  grunt.registerTask('compileFront', ['clean:front', 'coffee:front','coffee:angular','uglify', 'jade','less']);
+  grunt.registerTask('compileServer', ['clean:server', 'coffee:server']);
+
+
+  grunt.registerTask('default', ['compileFront', 'compileServer','livereload-start','develop', 'regarde']);
 };
