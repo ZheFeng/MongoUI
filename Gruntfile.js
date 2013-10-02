@@ -2,7 +2,7 @@
 
 module.exports = function (grunt) {
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks)
-  var yuiModules = '"app", "handlebars-base"'; 
+
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     clean: {
@@ -131,12 +131,12 @@ module.exports = function (grunt) {
     setTimeout(function () {
       grunt.task.run('livereload');
       done();
-    }, 1500);
+    }, 500);
   });
 
-  grunt.registerTask('compileFront', ['clean:front', 'coffee:front','coffee:angular','uglify', 'jade','less']);
-  grunt.registerTask('compileServer', ['clean:server', 'coffee:server']);
+  grunt.registerTask('compileFront', ['clean:front', 'coffee:angular','uglify', 'jade','less']);
+  grunt.registerTask('compileServer', ['clean:server', 'coffee:server','develop']);
 
 
-  grunt.registerTask('default', ['compileFront', 'compileServer','livereload-start','develop', 'regarde']);
+  grunt.registerTask('default', ['compileFront', 'compileServer','livereload-start','regarde']);
 };

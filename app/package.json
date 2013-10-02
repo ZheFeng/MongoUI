@@ -6,7 +6,9 @@
     "start": "node app"
   },
   "dependencies": {
+    "connect": "2.9.0",
     "express": "3.4.0",
+    "mongodb": "*",
     "jade": "*"
   }
 }

@@ -5,24 +5,19 @@
   "scripts": {
     "start": "node app"
   },
-  "dependencies": {
+  "devDependencies": {
     "chai": "*",
     "grunt": "*",
     "grunt-devtools": "*",
-    "grunt-contrib-coffee": "*",
-    "grunt-contrib-jade": "*",
-    "grunt-contrib-handlebars": "*",
-    "grunt-contrib-less": "*",
     "grunt-contrib-clean": "*",
     "grunt-contrib-uglify": "*",
-    "grunt-yui-compressor": "*",
-    "grunt-yui-contrib": "*",
-    "grunt-develop": "*",
-    "grunt-wrap": "*",
-    "grunt-regarde": "*",
-    "grunt-contrib-jshint": "*",
-    "matchdep": "*",
+    "grunt-contrib-coffee": "*",
+    "grunt-contrib-jade": "*",
+    "grunt-contrib-less": "*",
     "grunt-contrib-livereload": "*",
+    "grunt-develop": "*",
+    "grunt-regarde": "*",
+    "matchdep": "*",
     "colors": "*"
   }
 }

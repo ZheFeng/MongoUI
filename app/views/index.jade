@@ -1,0 +1,40 @@
+doctype 5
+html(xmlns:ng="http://angularjs.org", id="ng-app", ng-app="MongoUI", ng-controller="main")
+  head
+    title {{title}}
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+
+
+
+    link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css')
+
+
+
+    -if(process.env.NODE_ENV == 'development')
+      link(rel='stylesheet', href='/css/mongoui.min.css')
+      //- link(rel='stylesheet', href='/css/business.css')
+    -else
+      link(rel='stylesheet', href='/css/mongoui.min.css')
+
+
+
+  body
+    div(ng-include='templates.layout')
+
+
+    //- javascript setup
+    script(src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js")
+
+    script(src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.2.1/moment.min.js")
+
+
+    script(src="/components/angular/angular.min.js")
+    script(src="/components/angular-resource/angular-resource.min.js")
+    script(src="/components/angular-ui-router/release/angular-ui-router.min.js")
+    
+    -if(process.env.NODE_ENV == 'development')
+      script(src="/js/mongoui.min.js")
+      //- script(src="/js.src/mongoui.js")
+    -else
+      script(src="/js/mongoui.min.js")

@@ -7,8 +7,9 @@
     "components"
   ],
   "dependencies": {
-    "jquery": "1.9.1",
-    "bootstrap": "2.3.2",
-    "angular": "1.0.6"
+    "angular": "1.2.0-rc.1",
+    "angular-resource": "1.2.0-rc.1",
+    "angular-ui-router": "0.2.0",
+    "lesshat": "1.1.2"
   }
 }
