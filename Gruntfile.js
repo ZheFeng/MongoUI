@@ -37,6 +37,7 @@ module.exports = function (grunt) {
             './coffee.front.angular/mongoUi/factories.coffee',
             './coffee.front.angular/mongoUi/directives.coffee',
             './coffee.front.angular/mongoUi/controllers.coffee',
+            './coffee.front.angular/mongoUi/configs.coffee',
             './coffee.front.angular/mongoUi/main.coffee'
           ] // concat then compile into single file
         }

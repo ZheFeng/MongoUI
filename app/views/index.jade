@@ -8,6 +8,7 @@ html(xmlns:ng="http://angularjs.org", id="ng-app", ng-app="MongoUI", ng-controll
 
 
     link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css')
+    link(rel='stylesheet', href='//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css')
 
 
 
@@ -26,7 +27,11 @@ html(xmlns:ng="http://angularjs.org", id="ng-app", ng-app="MongoUI", ng-controll
     //- javascript setup
     script(src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js")
 
+
     script(src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.2.1/moment.min.js")
+    script(src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js")
+    script(src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/1.5.0/numeral.min.js")
+    script(src="//cdnjs.cloudflare.com/ajax/libs/string.js/1.2.0/string.min.js")
 
 
     script(src="/components/angular/angular.min.js")
@@ -34,7 +39,7 @@ html(xmlns:ng="http://angularjs.org", id="ng-app", ng-app="MongoUI", ng-controll
     script(src="/components/angular-ui-router/release/angular-ui-router.min.js")
     
     -if(process.env.NODE_ENV == 'development')
-      script(src="/js/mongoui.min.js")
-      //- script(src="/js.src/mongoui.js")
+      //- script(src="/js/mongoui.min.js")
+      script(src="/js.src/mongoui.js")
     -else
       script(src="/js/mongoui.min.js")

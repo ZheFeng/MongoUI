@@ -1,0 +1,43 @@
+
+
+.nav-container(ng-show="nav.server")
+  ul.nav.nav-pills.nav-stacked
+    li
+      a(href='#/servers/{{$stateParams.serverId}}/') 
+        span.glyphicon.glyphicon-dashboard
+        span  
+        span Server Overview
+    li 
+      a(href='#/servers/{{$stateParams.serverId}}/databases')
+        span.glyphicon.glyphicon-hdd
+        span  
+        span Databases
+        span.glyphicon.right.glyphicon-chevron-right
+
+
+.nav-container(ng-show="nav.databases")
+  ul.nav.nav-pills.nav-stacked
+    li
+      a(href='', ng-click="goServer()")
+        span.glyphicon.glyphicon-arrow-left
+        span  
+        span Back
+        span.right Databases
+    li(ng-repeat='database in databases')
+      a(href='', ng-click="showCollections = !showCollections")
+        span.glyphicon.glyphicon-list
+        span  
+        span {{database.name}}
+        span.glyphicon.right.glyphicon-chevron-right(ng-hide="showCollections")
+        span.glyphicon.right.glyphicon-chevron-down(ng-show="showCollections")
+      ul.nav.nav-pills.nav-stacked(ng-show="showCollections")
+        li
+          a(href='#/servers/{{$stateParams.serverId}}/databases/{{database.name}}') 
+            span.glyphicon.glyphicon-dashboard
+            span  
+            span Database Overview
+        li(ng-repeat='collection in database.collections')
+          a(href='#/servers/{{$stateParams.serverId}}/databases/{{database.name}}/collections/{{collection.name}}') 
+            span.glyphicon.glyphicon-th
+            span  
+            span {{collection.name}}

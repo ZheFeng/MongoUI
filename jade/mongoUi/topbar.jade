@@ -1,0 +1,12 @@
+
+nav.navbar.navbar-default.navbar-fixed-top.topbar
+  .collapse.navbar-collapse
+    ul.nav.navbar-nav
+      li.dropdown(mg-click-outside='showServers = false')
+        a.dropdown-toggle(href='', ng-click='showServers = !showServers')
+          span(ng-show='server') {{server.name}} 
+          span(ng-hide='server') Select Server 
+          b.caret
+        ul.dropdown-menu(style='display: block;', ng-show='showServers')
+          li(ng-repeat='s in servers')
+            a(href='#/servers/{{s.id}}/', ng-click='$parent.showServers = false') {{s.name}}

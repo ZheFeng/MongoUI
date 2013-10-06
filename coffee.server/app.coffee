@@ -29,7 +29,7 @@ app.use(isDev) if process.env.NODE_ENV is 'development'
 # }
 
 app.get('/', (req, res) -> res.render('index', { title: 'MongoUI' }))
-require('./lib/mongoApi')(app)
+require('./routes/mongoApi')(app)
 
 now = new Date()
 now = 'start at ' + now
