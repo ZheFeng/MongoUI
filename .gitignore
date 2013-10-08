@@ -6,4 +6,5 @@ app/public/js.src
 app/public/css
 app/public/html
 app/server
+coffee.server/config
 .sass-cache
