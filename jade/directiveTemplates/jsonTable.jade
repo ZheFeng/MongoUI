@@ -1,0 +1,13 @@
+
+table.table
+  thead
+    tr
+      th(ng-repeat='column in columns') {{column}}
+      th
+  tbody
+    tr(ng-repeat-start='document in documents')
+      td(ng-repeat='column in columns')  {{ document[column] | jsonCell }}
+      td: a(href='', ng-click="showRawJson = !showRawJson") Raw
+    tr(ng-repeat-end='', ng-show="showRawJson")
+      td(colspan='{{columns.length + 1}}') 
+        pre {{ document | json }}

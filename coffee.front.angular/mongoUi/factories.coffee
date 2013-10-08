@@ -3,6 +3,10 @@ mongoUi.factory.underscore = ($window) ->
   $window._
 mongoUi.factory.underscore.$inject = ['$window']
 
+mongoUi.factory.string = ($window) ->
+  $window.S
+mongoUi.factory.underscore.$inject = ['$window']
+
 mongoUi.factory.api = ($resource) -> 
   endPoint = '/api/'
   api = {}
@@ -19,14 +23,14 @@ mongoUi.factory.api = ($resource) ->
         url: endPoint + 'servers/:serverId/databases/create'
         method: 'POST'
         cache: false
-    $resource(endPoint + 'servers/:serverId/databases/:name')
+    $resource(endPoint + 'servers/:serverId/databases/:databaseName')
   api.collections = do ($resource)->
     actions = 
       create:
         url: endPoint + 'servers/:serverId/databases/:databaseName/collections/create'
         method: 'POST'
         cache: false
-    $resource(endPoint + 'servers/:serverId/databases/:databaseName/collections/:name')
+    $resource(endPoint + 'servers/:serverId/databases/:databaseName/collections/:collectionName')
 
   api
 mongoUi.factory.api.$inject = ['$resource']

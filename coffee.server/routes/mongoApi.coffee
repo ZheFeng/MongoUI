@@ -35,3 +35,8 @@ exports = module.exports = (server) ->
     serverInfo = _.find(servers, (server) -> server.id is req.params.serverId * 1)
     mongo(serverInfo).collections().then((collections)-> res.send(collections))
   )
+  server.get('/api/servers/:serverId/databases/:databaseName/collections/:collectionName', (req, res) ->
+    serverInfo = _.find(servers, (server) -> server.id is req.params.serverId * 1)
+    mongo(serverInfo).collection(req.params.collectionName, req.query.skip, req.query.limit)
+    .then((collections)-> res.send(collections)).fail((err) -> res.send(500, err))
+  )

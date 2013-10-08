@@ -1,9 +1,9 @@
 
 
-.nav-container(ng-show="nav.server")
+.nav-container(ng-show="$state.is('server.index')")
   ul.nav.nav-pills.nav-stacked
     li
-      a(href='#/servers/{{$stateParams.serverId}}/') 
+      a(href='#/servers/{{$stateParams.serverId}}/', ng-class="{active:$state.is('server.index')}") 
         span.glyphicon.glyphicon-dashboard
         span  
         span Server Overview
@@ -15,29 +15,31 @@
         span.glyphicon.right.glyphicon-chevron-right
 
 
-.nav-container(ng-show="nav.databases")
+.nav-container(ng-show="$state.is('server.databases') || $state.is('server.database') || $state.is('server.collections') || $state.is('server.collection')")
   ul.nav.nav-pills.nav-stacked
     li
-      a(href='', ng-click="goServer()")
+      a(href='#/servers/{{$stateParams.serverId}}/')
         span.glyphicon.glyphicon-arrow-left
         span  
         span Back
         span.right Databases
     li(ng-repeat='database in databases')
-      a(href='', ng-click="showCollections = !showCollections")
+      a(href='', ng-click="databaseToggle(database)", ng-class="{active:$stateParams.databaseName === database.name}")
         span.glyphicon.glyphicon-list
         span  
         span {{database.name}}
-        span.glyphicon.right.glyphicon-chevron-right(ng-hide="showCollections")
-        span.glyphicon.right.glyphicon-chevron-down(ng-show="showCollections")
-      ul.nav.nav-pills.nav-stacked(ng-show="showCollections")
+        span.glyphicon.right.glyphicon-chevron-right(ng-hide="$stateParams.databaseName === database.name")
+        span.glyphicon.right.glyphicon-chevron-down(ng-show="$stateParams.databaseName === database.name")
+      ul.nav.nav-pills.nav-stacked(ng-show="$stateParams.databaseName === database.name")
         li
-          a(href='#/servers/{{$stateParams.serverId}}/databases/{{database.name}}') 
+          a(href='#/servers/{{$stateParams.serverId}}/databases/{{database.name}}',
+            ng-class="{active:$state.is('server.database')}") 
             span.glyphicon.glyphicon-dashboard
             span  
             span Database Overview
         li(ng-repeat='collection in database.collections')
-          a(href='#/servers/{{$stateParams.serverId}}/databases/{{database.name}}/collections/{{collection.name}}') 
+          a(href='#/servers/{{$stateParams.serverId}}/databases/{{database.name}}/collections/{{collection.name}}',
+            ng-class="{active:$stateParams.collectionName === collection.name}") 
             span.glyphicon.glyphicon-th
             span  
-            span {{collection.name}}
+            span {{collection.name | truncate:20 }}

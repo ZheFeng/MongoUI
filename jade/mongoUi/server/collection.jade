@@ -1,2 +1,16 @@
-h1 Collection
-pre {{$stateParams | json}}
+h1 {{$stateParams.collectionName}}
+
+form.form-inline
+  .form-group
+    label.sr-only skip
+    input.form-control(type='text', placeholder='skip = 0', ng-model='skip')
+  .form-group
+    label.sr-only limit
+    input.form-control(type='textbox', placeholder='limit = 10', ng-model='limit')
+  button.btn.btn-default(ng-click="fetch()") Refresh
+
+div(mg-json-table='', documents='documents')
+a.btn.btn-default(ng-click="showRawJson = !showRawJson") Show Raw Json
+div((ng-show='showRawJson'))
+  br
+  pre {{documents | json}}

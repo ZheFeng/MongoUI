@@ -1,2 +1,5 @@
-h1 Database
-pre {{$stateParams | json}}
+
+
+
+a.btn.btn-primary.btn-lg.btn-block(ng-repeat='collection in collections[$stateParams.databaseName]', 
+  href='#/servers/{{$stateParams.serverId}}/databases/{{$stateParams.databaseName}}/collections/{{collection.name}}') {{collection.name}}
