@@ -37,7 +37,7 @@
             span.glyphicon.glyphicon-dashboard
             span  
             span Database Overview
-        li(ng-repeat='collection in database.collections')
+        li(ng-repeat='collection in collections[database.name]')
           a(href='#/servers/{{$stateParams.serverId}}/databases/{{database.name}}/collections/{{collection.name}}',
             ng-class="{active:$stateParams.collectionName === collection.name}") 
             span.glyphicon.glyphicon-th

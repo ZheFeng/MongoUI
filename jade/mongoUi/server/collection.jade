@@ -2,11 +2,13 @@ h1 {{$stateParams.collectionName}}
 
 form.form-inline
   .form-group
-    label.sr-only skip
-    input.form-control(type='text', placeholder='skip = 0', ng-model='skip')
+    label skip
   .form-group
-    label.sr-only limit
-    input.form-control(type='textbox', placeholder='limit = 10', ng-model='limit')
+    input.form-control(type='text', ng-model='skip')
+  .form-group
+    label limit
+  .form-group
+    input.form-control(type='textbox', ng-model='limit')
   button.btn.btn-default(ng-click="fetch()") Refresh
 
 div(mg-json-table='', documents='documents')

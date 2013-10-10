@@ -11,3 +11,4 @@ mongoUi.factory = {}
 mongoUi.factory.api = {}
 mongoUi.directive = {}
 mongoUi.filter = {}
+

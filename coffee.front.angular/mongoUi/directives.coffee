@@ -25,12 +25,14 @@ mongoUi.directive.jsonTable = (_) ->
         scope.$watch 'documents', ->
           generateColumns()
 
+        isAngularNotation = (val)->
+          val.indexOf('$$') >= 0
+
         generateColumns = ->
           scope.columns = [];
           _.each scope.documents, (document) ->
             scope.columns = _.union(scope.columns, _.keys(document))
+          scope.columns = _.filter scope.columns, (column) -> !isAngularNotation(column)
         generateColumns()
-
-
   directiveDefinitionObject
 mongoUi.directive.jsonTable.$inject = ['mongoUi.factory.underscore']

@@ -41,27 +41,21 @@ mongoUi.controller.global.$inject = ['$scope']
 
 mongoUi.controller.server = ($scope, $location, api, _) ->
   $scope.$on '$stateChangeSuccess', (event, toState, toParams, fromState, fromParams) ->
-    fetchCollections()
+    fetchCollections() if toState.name is 'server.database' || angular.isUndefined($scope.collections[$scope.$stateParams.databaseName])
+    
 
   $scope.collections = {}
-  $scope.databasesLoaded = false
   $scope.databases = api.databases.query {serverId: $scope.$stateParams.serverId}, ->
-    addCollectionsToDatabases()
-    $scope.databasesLoaded = true
 
-  addCollectionsToDatabases = ->
-    if angular.isArray($scope.databases)
-      for database in $scope.databases
-        database.collections = $scope.collections[database.name] if angular.isDefined($scope.collections[database.name])
   fetchCollections = ->
     serverId = $scope.$stateParams.serverId
     databaseName = $scope.$stateParams.databaseName
     if angular.isDefined(databaseName)
+      $scope.collections[databaseName] = [];
       $scope.collections[databaseName] = api.collections.query {serverId: serverId, databaseName: databaseName}, ->
         for collection in $scope.collections[databaseName]
           collection.fullName = collection.name
           collection.name = collection.name.replace(databaseName + '.', '') 
-        addCollectionsToDatabases()
 
   $scope.databaseToggle = (database) ->
     if($scope.$state.is('server.databases'))
@@ -106,6 +100,7 @@ mongoUi.controller.server.collection = ($scope, api) ->
   $scope.skip = 0
 
   $scope.fetch = ->
+    $scope.documents = []
     query = angular.extend({
       skip: $scope.skip
       limit: $scope.limit
