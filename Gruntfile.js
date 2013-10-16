@@ -112,7 +112,7 @@ module.exports = function (grunt) {
         files: [
           'coffee.server/**/*.coffee'
         ],
-        tasks: ['compileServer','develop', 'delayed-livereload']
+        tasks: ['compileServer','delayed-livereload']
       },
       front: {
         files: [

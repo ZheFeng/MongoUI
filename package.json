@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node app"
   },
-  "devDependencies": {
+  "dependencies": {
     "chai": "*",
     "grunt": "*",
     "grunt-devtools": "*",
