@@ -4,7 +4,15 @@ _ = require 'underscore'
 mongo = require('../lib/mongoResource').Mongo
 
 
-servers = require '../config/servers'
+servers = [{
+        username: 'basic',
+        password: 'Jum1du0',
+        host: '10.211.55.30',
+        port: 27017,
+        database: 'account'
+        name: 'account'
+        id: 1
+  }]
 
 exports = module.exports = (server) ->
   server.get('/api/servers', (req, res) ->
