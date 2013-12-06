@@ -98,14 +98,31 @@ mongoUi.controller.server.collections.$inject = ['$scope', 'mongoUi.factory.api'
 mongoUi.controller.server.collection = ($scope, api) ->
   $scope.limit = 10
   $scope.skip = 0
+  $scope.query = '{}'
+
+  $scope.page = (next)->
+    $scope.skip = $scope.skip * 1
+    if next
+      $scope.skip += $scope.limit * 1
+    else
+      $scope.skip -= $scope.limit * 1
+
+    $scope.skip = 0 if $scope.skip < 0
+
+    $scope.fetch()
 
   $scope.fetch = ->
+
+
     $scope.documents = []
+    $scope.count = 0
     query = angular.extend({
-      skip: $scope.skip
+      query: JSON.stringify(eval("(" + $scope.query + ")"))
       limit: $scope.limit
+      skip: $scope.skip
     }, $scope.$stateParams)
     api.collections.query query, (documents) -> $scope.documents = documents
+    api.collections.count query, (data) -> $scope.count = data.count
 
   $scope.fetch()
 

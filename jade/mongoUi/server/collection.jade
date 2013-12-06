@@ -1,4 +1,4 @@
-h1 {{$stateParams.collectionName}}
+h1 {{$stateParams.collectionName}} - {{count | number}} documents
 
 form.form-inline
   .form-group
@@ -10,6 +10,11 @@ form.form-inline
   .form-group
     input.form-control(type='textbox', ng-model='limit')
   button.btn.btn-default(ng-click="fetch()") Refresh
+  button.btn.btn-default(ng-click="page(false)") Pre
+  button.btn.btn-default(ng-click="page(true)") Next
+
+textarea(ng-model="query")
+button.btn.btn-default(ng-click="fetch()") Query
 
 div(mg-json-table='', documents='documents')
 a.btn.btn-default(ng-click="showRawJson = !showRawJson") Show Raw Json

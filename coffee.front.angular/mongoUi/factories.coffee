@@ -30,7 +30,11 @@ mongoUi.factory.api = ($resource) ->
         url: endPoint + 'servers/:serverId/databases/:databaseName/collections/create'
         method: 'POST'
         cache: false
-    $resource(endPoint + 'servers/:serverId/databases/:databaseName/collections/:collectionName')
+      count:
+        url: endPoint + 'servers/:serverId/databases/:databaseName/collections/:collectionName/count'
+        method: 'GET'
+        cache: false
+    $resource(endPoint + 'servers/:serverId/databases/:databaseName/collections/:collectionName', {}, actions)
 
   api
 mongoUi.factory.api.$inject = ['$resource']

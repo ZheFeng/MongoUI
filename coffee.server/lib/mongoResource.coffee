@@ -37,7 +37,7 @@ class Mongo
             deferred.resolve names
 
     deferred.promise
-  collection: (collectionName, skip, limit)->
+  collection: (collectionName, query, skip, limit)->
     deferred = q.defer()
 
     mongodb.MongoClient.connect config.connectionString(), (err, db) ->
@@ -45,12 +45,28 @@ class Mongo
        deferred.reject err
       else 
         collection = db.collection(collectionName)
-        collection.find({}, {}, skip, limit).toArray (err, docs) ->
+        collection.find(query, {}, skip, limit).toArray (err, docs) ->
           db.close();
           if err 
             deferred.reject err 
           else 
             deferred.resolve docs
+
+    deferred.promise
+  count: (collectionName, query)->
+    deferred = q.defer()
+
+    mongodb.MongoClient.connect config.connectionString(), (err, db) ->
+      if err 
+       deferred.reject err
+      else 
+        collection = db.collection(collectionName)
+        collection.count query, (err, count) ->
+          db.close();
+          if err 
+            deferred.reject err 
+          else 
+            deferred.resolve count
 
     deferred.promise
 
